@@ -8,7 +8,7 @@ window.onload = function() {
 
     var background;
     function preload() {
-        game.load.image('background', 'background.jpg');
+        game.load.image('background', 'office.jpg');
         game.load.image('woman', 'woman.png');
 
     }
@@ -16,7 +16,7 @@ window.onload = function() {
     function create() {
         game.add.image(0, 0, 'background');
         background = game.add.tileSprite(0, 0, 1400, 500, 'background');
-        var test = game.add.sprite(20, 100, 'woman');
+        myimage = game.add.sprite(50,game.world.height-200, 'woman');myimage.scale.setTo(0.4,0.4);
     }
 
     function update() {
