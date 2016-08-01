@@ -4,19 +4,23 @@ window.onload = function() {
     //  Although it will work fine with this tutorial, it's almost certainly not the most current version.
     //  Be sure to replace it with an updated version before you start experimenting with adding your own code.
 
-    var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create });
+    var game = new Phaser.Game(700, 500, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
-    function preload () {
-
-        game.load.image('logo', 'phaser.png');
+    var background;
+    function preload() {
+        game.load.image('background', 'background.jpg');
+        game.load.image('woman', 'woman.png');
 
     }
 
-    function create () {
+    function create() {
+        game.add.image(0, 0, 'background');
+        background = game.add.tileSprite(0, 0, 1400, 500, 'background');
+        var test = game.add.sprite(20, 100, 'woman');
+    }
 
-        var logo = game.add.sprite(game.world.centerX, game.world.centerY, 'logo');
-        logo.anchor.setTo(0.5, 0.5);
-
+    function update() {
+        background.tilePosition.x -= 1;
     }
 
 };
