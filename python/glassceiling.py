@@ -1,6 +1,6 @@
 import pygame
 import random
-
+from pygame.locals import*
 
 
 # Define some colors
@@ -20,7 +20,23 @@ pygame.init()
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
- 
+
+class woman():
+  def __init__(self, screen, x_postition, y_position):
+    self.screen = screen
+    self.x_postition = x_postition
+    self.y_position = y_position
+
+  def create_woman(self):
+    woman = pygame.image.load ("woman-still.png")
+    woman = pygame.transform.scale(woman, (80, 35))
+    self.x_position = random.randint (0, 800)
+    self.y_position = random.randint (0, 100)
+    screen.blit(woman, (self.x_position, self.y_position))
+
+  def move_woman (self, speed):
+    self.x_position += speed
+
 class Building():
   def __init__(self, x_point, y_point, width, height, color):
     self.x_point= x_point
@@ -88,27 +104,14 @@ class RunningPerson():
     if self.jumpheight > 0: self.jumpheight -= 1
     feet_y = SCREEN_HEIGHT - self.jumpheight
     if self.speed == 0:
-      pygame.draw.circle(screen, self.color, (self.x_point + 1, feet_y - 60), 10, 0)
-      pygame.draw.line(screen,self.color,(self.x_point, feet_y - 20), (self.x_point, feet_y - 60),4)
-      pygame.draw.line(screen, self.color, (self.x_point - 10, feet_y - 40), (self.x_point + 10, feet_y - 40),4)
-      pygame.draw.line(screen, self.color, (self.x_point, feet_y - 20), (self.x_point - 10, feet_y),4)
-      pygame.draw.line(screen, self.color, (self.x_point, feet_y - 20), (self.x_point + 10, feet_y),4)
+      # woman1- still
 
     elif self.runstage < 20:
-      pygame.draw.circle(screen, self.color, (self.x_point + 1, feet_y - 60), 10, 0)
-      pygame.draw.line(screen,self.color,(self.x_point, feet_y - 20), (self.x_point, feet_y - 60),4)
-      pygame.draw.line(screen, self.color, (self.x_point - 10, feet_y - 40), (self.x_point + 10, feet_y - 40),4)
-      pygame.draw.line(screen, self.color, (self.x_point + 10, feet_y - 40), (self.x_point + 10, feet_y - 35), 4)
-      pygame.draw.line(screen, self.color, (self.x_point - 10, feet_y - 40), (self.x_point - 10, feet_y - 45), 4)
-      pygame.draw.line(screen, self.color, (self.x_point, feet_y - 20), (self.x_point - 20, feet_y - 10),4)
-      pygame.draw.line(screen, self.color, (self.x_point, feet_y - 20), (self.x_point + 5, feet_y - 10),4)
+      # woman2
       self.runstage += self.speed
+
     elif self.runstage < 40:
-      pygame.draw.circle(screen, self.color, (self.x_point + 5, feet_y - 60), 10, 0)
-      pygame.draw.line(screen,self.color,(self.x_point + 10, feet_y - 20), (self.x_point, feet_y - 60),4)
-      pygame.draw.line(screen, self.color, (self.x_point - 10, feet_y - 30), (self.x_point + 10, feet_y - 40),4)
-      pygame.draw.line(screen, self.color, (self.x_point+ 10, feet_y - 20), (self.x_point - 5, feet_y - 10),4)
-      pygame.draw.line(screen, self.color, (self.x_point + 10 , feet_y - 20), (self.x_point + 20, feet_y - 10),4)
+      # woman3
       self.runstage += self.speed
     if self.runstage >= 40: self.runstage = 1
 
