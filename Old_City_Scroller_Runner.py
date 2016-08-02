@@ -1,5 +1,8 @@
 import pygame
 import random
+from PIL import Image
+im = Image.open("Runner_Girl_Still.jpg")
+
 
 # Define some colors
 BLACK = (0, 0, 0)
@@ -86,12 +89,7 @@ class RunningPerson():
     if self.jumpheight > 0: self.jumpheight -= 1
     feet_y = SCREEN_HEIGHT - self.jumpheight
     if self.speed == 0:
-      pygame.draw.circle(screen, self.color, (self.x_point + 1, feet_y - 60), 10, 0)
-      pygame.draw.line(screen,self.color,(self.x_point, feet_y - 20), (self.x_point, feet_y - 60),4)
-      pygame.draw.line(screen, self.color, (self.x_point - 10, feet_y - 40), (self.x_point + 10, feet_y - 40),4)
-      pygame.draw.line(screen, self.color, (self.x_point, feet_y - 20), (self.x_point - 10, feet_y),4)
-      pygame.draw.line(screen, self.color, (self.x_point, feet_y - 20), (self.x_point + 10, feet_y),4)
-
+      myImage = "Runner_Girl_Still.jpg"
     elif self.runstage < 20:
       pygame.draw.circle(screen, self.color, (self.x_point + 1, feet_y - 60), 10, 0)
       pygame.draw.line(screen,self.color,(self.x_point, feet_y - 20), (self.x_point, feet_y - 60),4)
