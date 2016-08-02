@@ -24,13 +24,18 @@ window.onload = function() {
         game.load.image('woman', 'woman.png');
 
     }
+<<<<<<< HEAD
 
     var myimage;
 
+=======
+    var myimage;
+>>>>>>> origin/master
     function create() {
         game.world.setBounds(-500, 0, 1400, 500);
         background = game.add.tileSprite(-700, 0, 1400, 500, 'background');
 
+<<<<<<< HEAD
         myimage = game.add.sprite(50 ,game.world.height-150, 'woman');
         myimage.scale.setTo(0.4,0.4);
         
@@ -43,6 +48,12 @@ window.onload = function() {
         myimage.animations.play('run', 10, true);
 
         game.camera.follow(player);
+=======
+        myimage = game.add.sprite(50 ,game.world.height-200, 'woman');
+        myimage.scale.setTo(0.4,0.4);
+        
+        myimage.anchor.setTo(0.5, 0.5);
+>>>>>>> origin/master
 
     }
 
@@ -50,6 +61,7 @@ window.onload = function() {
         background.tilePosition.x -= 1;
 
         
+<<<<<<< HEAD
         if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)){
             while myimage.x>0 {
                 myimage.x += 4;
@@ -74,6 +86,20 @@ window.onload = function() {
         //     player.body.velocity.y = -350;
         // }
 
+=======
+        if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
+        {
+            myimage.x += 4;
+        }
+        if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
+        {
+            myimage.x += -4;
+        }
+
+        
+
+    
+>>>>>>> origin/master
     }
 
 
