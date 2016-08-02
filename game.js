@@ -32,6 +32,10 @@ window.onload = function() {
         {
             myimage.x += 4;
         }
+        if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
+        {
+            myimage.x += -4;
+        }
 
         
 
