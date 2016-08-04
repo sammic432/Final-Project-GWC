@@ -1,5 +1,6 @@
 import pygame
 import random
+import pygame, Buttons
 from pygame.locals import*
 
 
@@ -21,17 +22,18 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 woman_detail= pygame.image.load('woman-still.png').convert_alpha()
 
+l1=pygame.font.SysFont("comicsansms",50)
+
 class woman():
   def __init__(self, screen, x_position, y_position):
     self.screen = screen
     self.x_position = x_position
     self.y_position = y_position
-    self.jumpheight = 0
 
-  def creat_woman(self):
-    pygame.image.load ("woman-still.png")
-    pygame.transform.scale(pygame.image.load('woman-still.png'), (350, 250))
-    screen.blit(pygame.image.load('woman-still.png'), (self.x_position, self.y_position))
+  def create_woman(self):
+    woman = pygame.image.load ("woman-still.png")
+    woman = pygame.transform.scale(woman, (175, 300))
+    screen.blit(woman, (self.x_position, self.y_position))
 
   def go_to_right(self):
     self.x_position= self.x_position+20
@@ -39,22 +41,23 @@ class woman():
   def go_to_left(self):
     self.x_position=self.x_position-20
 
-
-
-
-  def jump(self):
-    if self.jumpheight < SCREEN_HEIGHT - 100: 
-      self.jumpheight += 20
-
-
-
+  def go_up(self):
+    self.y_position=self.y_position-10
+  def go_down(self):
+    self.y_position=self.y_position+10
     
+
+   
 BACKGROUND_PICTURE = pygame.image.load("office.jpg")
 BACKGROUND_PICTURE2 = pygame.image.load("office.jpg")
 BACKGROUND_PICTURE_x = 0
 BACKGROUND_PICTURE2_x = BACKGROUND_PICTURE.get_width()
  
-runner = woman(screen, 80, 350)
+# runner = woman(screen, 80, 350)
+
+runner = woman(screen, 0, 200)
+
+question=screen.blit(l1.render("hello",True,(0,255,0)),(100,100))
 
 
 pygame.display.set_caption("CityScroller") 
@@ -70,14 +73,20 @@ while not done:
                runner.go_to_right()
             elif event.key == pygame.K_LEFT:
                 runner.go_to_left()
-            elif event.key == pygame.K_SPACE:
-                runner.jump()
+            elif event.key == pygame.K_UP:
+                runner.go_up()
+            elif event.key == pygame.K_DOWN:
+                runner.go_down()
         if event.type == pygame.QUIT:
             done = True
 
     screen.blit(BACKGROUND_PICTURE, (0,0))
 
-    runner.creat_woman()
+
+    runner.create_woman()
+
+    # if __name__ == '__main__':
+    #   obj = Button_Example()
 
     pygame.display.flip()
  
