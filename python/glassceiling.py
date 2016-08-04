@@ -12,6 +12,13 @@ RED = (255, 0, 0)
 BLUE = (0, 0, 255)
 GREY = (129, 129, 129)
 
+#question variables
+question1_1="You just became a manager in your company,"
+question1_2="and you were assigned a group project, in which "
+question1_3="you were the only woman. This project has to"
+question1_4="do with something you’re really passionate about"
+question1_5="and would be good at doing, but you feel that they are"
+question1_6="not happy with having a female manager. What do you do?"
 
 pygame.init()
  
@@ -22,7 +29,7 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 woman_detail= pygame.image.load('woman-still.png').convert_alpha()
 
-l1=pygame.font.SysFont("comicsansms",50)
+l1=pygame.font.SysFont("comicsansms",20)
 
 class woman():
   def __init__(self, screen, x_position, y_position):
@@ -45,7 +52,15 @@ class woman():
     self.y_position=self.y_position-10
   def go_down(self):
     self.y_position=self.y_position+10
-    
+  def show_question(self):
+    if self.x_position ==500:
+      screen.blit(l1.render(question1_1,True,(0,0,0)),(20,20))
+      screen.blit(l1.render(question1_2,True,(0,0,0)),(20,50))
+      screen.blit(l1.render(question1_3,True,(0,0,0)),(20,80))
+      screen.blit(l1.render(question1_4,True,(0,0,0)),(20,110))
+      screen.blit(l1.render(question1_5,True,(0,0,0)),(20,140))
+      screen.blit(l1.render(question1_6,True,(0,0,0)),(20,170))
+
 
    
 BACKGROUND_PICTURE = pygame.image.load("office.jpg")
@@ -57,7 +72,6 @@ BACKGROUND_PICTURE2_x = BACKGROUND_PICTURE.get_width()
 
 runner = woman(screen, 0, 200)
 
-question=screen.blit(l1.render("hello",True,(0,255,0)),(100,100))
 
 
 pygame.display.set_caption("CityScroller") 
@@ -84,6 +98,7 @@ while not done:
 
 
     runner.create_woman()
+    runner.show_question()
 
     # if __name__ == '__main__':
     #   obj = Button_Example()
