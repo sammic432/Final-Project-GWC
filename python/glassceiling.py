@@ -20,6 +20,12 @@ question1_4="do with something you’re really passionate about"
 question1_5="and would be good at doing, but you feel that they are"
 question1_6="not happy with having a female manager. What do you do?"
 
+answer1_1="You can switch to another"
+answer1_2="group with a similar project" 
+answer1_3="and other females." 
+answer1_4=" " 
+answer1_5=""
+
 pygame.init()
  
 SCREEN_WIDTH = 700
@@ -30,6 +36,7 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 woman_detail= pygame.image.load('woman-still.png').convert_alpha()
 
 l1=pygame.font.SysFont("comicsansms",20)
+l2=pygame.font.SysFont("comicsansms",16)
 
 class Button:
     def __init__(self, nothing):
@@ -73,7 +80,7 @@ class Button:
             else: return False
         else: return False
 
-
+Button1=Button(832)
 
 class woman():
   def __init__(self, screen, x_position, y_position):
@@ -104,6 +111,19 @@ class woman():
       screen.blit(l1.render(question1_4,True,(0,0,0)),(20,110))
       screen.blit(l1.render(question1_5,True,(0,0,0)),(20,140))
       screen.blit(l1.render(question1_6,True,(0,0,0)),(20,170))
+  def show_answer(self):
+    if self.x_position ==500:
+      Button1.create_button(screen, (102, 204, 255), 30, 220, 250, 70, 0, "noone", (102,204,255))
+      screen.blit(l2.render(answer1_1,True,(255,255,255)),(40,220))
+      screen.blit(l2.render(answer1_2,True,(255,255,255)),(40,245))
+      screen.blit(l2.render(answer1_3,True,(255,255,255)),(40,270))
+      for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+        elif event.type == MOUSEBUTTONDOWN:
+            if Button1.pressed(pygame.mouse.get_pos()):
+                self.x_position = 0
+
 
 
    
@@ -111,7 +131,7 @@ BACKGROUND_PICTURE = pygame.image.load("office.jpg")
 BACKGROUND_PICTURE2 = pygame.image.load("office.jpg")
 BACKGROUND_PICTURE_x = 0
 BACKGROUND_PICTURE2_x = BACKGROUND_PICTURE.get_width()
-Button1=Button(832)
+
 
 # runner = woman(screen, 80, 350)
 
@@ -144,15 +164,8 @@ while not done:
 
     runner.create_woman()
     runner.show_question()
-
-    Button1.create_button(screen, (107,142,35), 225, 135, 200,    100,    0,        "Example", (255,255,255))
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-        elif event.type == MOUSEBUTTONDOWN:
-            if Button1.pressed(pygame.mouse.get_pos()):
-                print ("Give me a command!")
-
+    runner.show_answer()
+    
 
     pygame.display.flip()
  
