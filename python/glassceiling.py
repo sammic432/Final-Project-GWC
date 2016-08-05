@@ -38,6 +38,15 @@ def sub(u, v):
 def normalize(v): 
     return [v[i]/magnitude(v)  for i in range(len(v))]
 
+answer2_1="Try your best, use your skill"
+answer2_2="and knowledge to prove that" 
+answer2_3="you can be a great manager."
+answer3_1="You ask your company to add" 
+answer3_2="more females into the group" 
+answer3_3="to even out the gender ratio."
+answer4_1="You try to get on your co-workers’"
+answer4_2="good side by bringing cookies" 
+answer4_3="and coffee to work every day."
 
 pygame.init()
 
@@ -106,6 +115,52 @@ class Button:
 
 Button1=Button(832)
 
+l1=pygame.font.SysFont("comicsansms",20)
+l2=pygame.font.SysFont("comicsansms",16)
+
+class Button:
+    
+    def create_button(self, surface, color, x, y, length, height, width, text, text_color):
+        surface = self.draw_button(surface, color, length, height, x, y, width)
+        surface = self.write_text(surface, text, text_color, length, height, x, y)
+        self.rect = pygame.Rect(x,y, length, height)
+        return surface
+
+    def write_text(self, surface, text, text_color, length, height, x, y):
+        font_size = int(length//len(text))
+        myFont = pygame.font.SysFont("Calibri", font_size)
+        myText = myFont.render(text, 1, text_color)
+        surface.blit(myText, ((x+length/2) - myText.get_width()/2, (y+height/2) - myText.get_height()/2))
+        return surface
+
+    def draw_button(self, surface, color, length, height, x, y, width):           
+        for i in range(1,10):
+            s = pygame.Surface((length+(i*2),height+(i*2)))
+            s.fill(color)
+            alpha = (255/(i+2))
+            if alpha <= 0:
+                alpha = 1
+            s.set_alpha(alpha)
+            pygame.draw.rect(s, color, (x-i,y-i,length+i,height+i), width)
+            surface.blit(s, (x-i,y-i))
+        pygame.draw.rect(surface, color, (x,y,length,height), 0)
+        pygame.draw.rect(surface, (190,190,190), (x,y,length,height), 1)  
+        return surface
+
+    def pressed(self, mouse):
+        if mouse[0] > self.rect.topleft[0]:
+            if mouse[1] > self.rect.topleft[1]:
+                if mouse[0] < self.rect.bottomright[0]:
+                    if mouse[1] < self.rect.bottomright[1]:
+                        print ("Some button was pressed!")
+                        return True
+                    else: return False
+                else: return False
+            else: return False
+        else: return False
+
+
+
 class woman():
   def __init__(self, screen, x_position, y_position):
     self.screen = screen
@@ -118,6 +173,7 @@ class woman():
     print(imageFile)
     woman = pygame.image.load(imageFile)
     woman = pygame.transform.scale(woman, (100, 150))
+    self.buttonList = []
     screen.blit(woman, (self.x_position, self.y_position))
 
   def go_to_right(self):
@@ -142,7 +198,12 @@ class woman():
     print(self.imageList)
     self.imageList.insert(0, last)
     # self.create_woman(self.imageList[0])
+    self.x_position=self.x_position-20
 
+  def go_up(self):
+    self.y_position=self.y_position-10
+  def go_down(self):
+    self.y_position=self.y_position+10
 
   def show_question(self):
     if self.x_position ==500:
@@ -152,6 +213,7 @@ class woman():
       screen.blit(l1.render(question1_4,True,(0,0,0)),(20,110))
       screen.blit(l1.render(question1_5,True,(0,0,0)),(20,140))
       screen.blit(l1.render(question1_6,True,(0,0,0)),(20,170))
+
   def show_answer(self):
     if self.x_position ==500:
       Button1.create_button(screen, (102, 204, 255), 30, 220, 250, 70, 0, "noone", (102,204,255))
@@ -165,7 +227,25 @@ class woman():
             if Button1.pressed(pygame.mouse.get_pos()):
                 self.x_position = 0
 
-
+  def show_answer(self):
+    coordinates = [[30, 220],[310, 220],[30, 310],[310, 310]]
+    for xy in coordinates:
+      if self.x_position == 500:
+        button = Button()
+        self.buttonList.append(button)
+        button.create_button(screen, (64, 64, 64), xy[0], xy[1], 260, 80, 0, "no", (64, 64, 64))
+        screen.blit(l2.render(answer1_1,True,(230, 230, 230)),(40,220))
+        screen.blit(l2.render(answer1_2,True,(230, 230, 230)),(40,245))
+        screen.blit(l2.render(answer1_3,True,(230, 230, 230)),(40,270))
+        screen.blit(l2.render(answer2_1,True,(230, 230, 230)),(320,220))
+        screen.blit(l2.render(answer2_2,True,(230, 230, 230)),(320,245))
+        screen.blit(l2.render(answer2_3,True,(230, 230, 230)),(320,270))
+        screen.blit(l2.render(answer3_1,True,(230, 230, 230)),(40,310))
+        screen.blit(l2.render(answer3_2,True,(230, 230, 230)),(40,335))
+        screen.blit(l2.render(answer3_3,True,(230, 230, 230)),(40,360))
+        screen.blit(l2.render(answer4_1,True,(230, 230, 230)),(320,310))
+        screen.blit(l2.render(answer4_2,True,(230, 230, 230)),(320,335))
+        screen.blit(l2.render(answer4_3,True,(230, 230, 230)),(320,360))
 
    
 BACKGROUND_PICTURE = pygame.image.load("office.jpg")
@@ -177,8 +257,6 @@ BACKGROUND_PICTURE2_x = BACKGROUND_PICTURE.get_width()
 # runner = woman(screen, 80, 350)
 
 runner = woman(screen, 0, 200)
-
-
 
 pygame.display.set_caption("Glass Ceiling") 
 clock = pygame.time.Clock() 
@@ -198,6 +276,10 @@ while not done:
                 runner.go_up()
             elif event.key == pygame.K_DOWN:
                 runner.go_down()
+        elif event.type == MOUSEBUTTONDOWN:
+            for button in runner.buttonList:
+              if button.pressed(pygame.mouse.get_pos()):
+                runner.x_position = 0
         if event.type == pygame.QUIT:
             done = True
 
@@ -221,7 +303,9 @@ while not done:
     runner.create_woman("running_girl_0001_Layer-3.png")
     runner.show_question()
     runner.show_answer()
-    
+    # runner.show_answer2()
+    # runner.show_answer3()
+    # runner.show_answer4()
 
     pygame.display.flip()
  
