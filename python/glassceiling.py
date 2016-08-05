@@ -23,8 +23,15 @@ question1_6="not happy with having a female manager. What do you do?"
 answer1_1="You can switch to another"
 answer1_2="group with a similar project" 
 answer1_3="and other females." 
-answer1_4=" " 
-answer1_5=""
+answer2_1="Try your best, use your skill"
+answer2_2="and knowledge to prove that" 
+answer2_3="you can be a great manager."
+answer3_1="You ask your company to add" 
+answer3_2="more females into the group" 
+answer3_3="to even out the gender ratio."
+answer4_1="You try to get on your co-workers’"
+answer4_2="good side by bringing cookies" 
+answer4_3="and coffee to work every day."
 
 pygame.init()
  
@@ -113,10 +120,46 @@ class woman():
       screen.blit(l1.render(question1_6,True,(0,0,0)),(20,170))
   def show_answer(self):
     if self.x_position ==500:
-      Button1.create_button(screen, (102, 204, 255), 30, 220, 250, 70, 0, "noone", (102,204,255))
-      screen.blit(l2.render(answer1_1,True,(255,255,255)),(40,220))
-      screen.blit(l2.render(answer1_2,True,(255,255,255)),(40,245))
-      screen.blit(l2.render(answer1_3,True,(255,255,255)),(40,270))
+      Button1.create_button(screen, (64, 64, 64), 30, 220, 250, 70, 0, "noone", (64, 64, 64))
+      screen.blit(l2.render(answer1_1,True,(230, 230, 230)),(40,220))
+      screen.blit(l2.render(answer1_2,True,(230, 230, 230)),(40,245))
+      screen.blit(l2.render(answer1_3,True,(230, 230, 230)),(40,270))
+      for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+        elif event.type == MOUSEBUTTONDOWN:
+            if Button1.pressed(pygame.mouse.get_pos()):
+                self.x_position = 0
+
+    if self.x_position ==500:
+      Button1.create_button(screen, (64, 64, 64),310, 220, 250, 70, 0, "noone", (64, 64, 64))
+      screen.blit(l2.render(answer2_1,True,(230, 230, 230)),(320,220))
+      screen.blit(l2.render(answer2_2,True,(230, 230, 230)),(320,245))
+      screen.blit(l2.render(answer2_3,True,(230, 230, 230)),(320,270))
+      for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+        elif event.type == MOUSEBUTTONDOWN:
+            if Button1.pressed(pygame.mouse.get_pos()):
+                self.x_position = 0
+
+    if self.x_position ==500:
+      Button1.create_button(screen, (64, 64, 64), 30, 310, 250, 70, 0, "noone", (64, 64, 64))
+      screen.blit(l2.render(answer3_1,True,(230, 230, 230)),(40,310))
+      screen.blit(l2.render(answer3_2,True,(230, 230, 230)),(40,335))
+      screen.blit(l2.render(answer3_3,True,(230, 230, 230)),(40,360))
+      for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+        elif event.type == MOUSEBUTTONDOWN:
+            if Button1.pressed(pygame.mouse.get_pos()):
+                self.x_position = 0
+
+    if self.x_position ==500:
+      Button1.create_button(screen, (64, 64, 64),310, 310, 260, 70, 0, "noone", (64, 64, 64))
+      screen.blit(l2.render(answer4_1,True,(230, 230, 230)),(320,310))
+      screen.blit(l2.render(answer4_2,True,(230, 230, 230)),(320,335))
+      screen.blit(l2.render(answer4_3,True,(230, 230, 230)),(320,360))
       for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
