@@ -46,8 +46,7 @@ l1=pygame.font.SysFont("comicsansms",20)
 l2=pygame.font.SysFont("comicsansms",16)
 
 class Button:
-    def __init__(self, nothing):
-      self.nothing=nothing
+    
     def create_button(self, surface, color, x, y, length, height, width, text, text_color):
         surface = self.draw_button(surface, color, length, height, x, y, width)
         surface = self.write_text(surface, text, text_color, length, height, x, y)
@@ -87,13 +86,14 @@ class Button:
             else: return False
         else: return False
 
-Button1=Button(832)
+
 
 class woman():
   def __init__(self, screen, x_position, y_position):
     self.screen = screen
     self.x_position = x_position
     self.y_position = y_position
+    self.buttonList = []
 
   def create_woman(self):
     woman = pygame.image.load ("woman-still.png")
@@ -110,6 +110,7 @@ class woman():
     self.y_position=self.y_position-10
   def go_down(self):
     self.y_position=self.y_position+10
+
   def show_question(self):
     if self.x_position ==500:
       screen.blit(l1.render(question1_1,True,(0,0,0)),(20,20))
@@ -118,56 +119,26 @@ class woman():
       screen.blit(l1.render(question1_4,True,(0,0,0)),(20,110))
       screen.blit(l1.render(question1_5,True,(0,0,0)),(20,140))
       screen.blit(l1.render(question1_6,True,(0,0,0)),(20,170))
+
   def show_answer(self):
-    if self.x_position ==500:
-      Button1.create_button(screen, (64, 64, 64), 30, 220, 250, 70, 0, "noone", (64, 64, 64))
-      screen.blit(l2.render(answer1_1,True,(230, 230, 230)),(40,220))
-      screen.blit(l2.render(answer1_2,True,(230, 230, 230)),(40,245))
-      screen.blit(l2.render(answer1_3,True,(230, 230, 230)),(40,270))
-      for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-        elif event.type == MOUSEBUTTONDOWN:
-            if Button1.pressed(pygame.mouse.get_pos()):
-                self.x_position = 0
-
-    if self.x_position ==500:
-      Button1.create_button(screen, (64, 64, 64),310, 220, 250, 70, 0, "noone", (64, 64, 64))
-      screen.blit(l2.render(answer2_1,True,(230, 230, 230)),(320,220))
-      screen.blit(l2.render(answer2_2,True,(230, 230, 230)),(320,245))
-      screen.blit(l2.render(answer2_3,True,(230, 230, 230)),(320,270))
-      for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-        elif event.type == MOUSEBUTTONDOWN:
-            if Button1.pressed(pygame.mouse.get_pos()):
-                self.x_position = 0
-
-    if self.x_position ==500:
-      Button1.create_button(screen, (64, 64, 64), 30, 310, 250, 70, 0, "noone", (64, 64, 64))
-      screen.blit(l2.render(answer3_1,True,(230, 230, 230)),(40,310))
-      screen.blit(l2.render(answer3_2,True,(230, 230, 230)),(40,335))
-      screen.blit(l2.render(answer3_3,True,(230, 230, 230)),(40,360))
-      for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-        elif event.type == MOUSEBUTTONDOWN:
-            if Button1.pressed(pygame.mouse.get_pos()):
-                self.x_position = 0
-
-    if self.x_position ==500:
-      Button1.create_button(screen, (64, 64, 64),310, 310, 260, 70, 0, "noone", (64, 64, 64))
-      screen.blit(l2.render(answer4_1,True,(230, 230, 230)),(320,310))
-      screen.blit(l2.render(answer4_2,True,(230, 230, 230)),(320,335))
-      screen.blit(l2.render(answer4_3,True,(230, 230, 230)),(320,360))
-      for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-        elif event.type == MOUSEBUTTONDOWN:
-            if Button1.pressed(pygame.mouse.get_pos()):
-                self.x_position = 0
-
-
+    coordinates = [[30, 220],[310, 220],[30, 310],[310, 310]]
+    for xy in coordinates:
+      if self.x_position == 500:
+        button = Button()
+        self.buttonList.append(button)
+        button.create_button(screen, (64, 64, 64), xy[0], xy[1], 260, 80, 0, "no", (64, 64, 64))
+        screen.blit(l2.render(answer1_1,True,(230, 230, 230)),(40,220))
+        screen.blit(l2.render(answer1_2,True,(230, 230, 230)),(40,245))
+        screen.blit(l2.render(answer1_3,True,(230, 230, 230)),(40,270))
+        screen.blit(l2.render(answer2_1,True,(230, 230, 230)),(320,220))
+        screen.blit(l2.render(answer2_2,True,(230, 230, 230)),(320,245))
+        screen.blit(l2.render(answer2_3,True,(230, 230, 230)),(320,270))
+        screen.blit(l2.render(answer3_1,True,(230, 230, 230)),(40,310))
+        screen.blit(l2.render(answer3_2,True,(230, 230, 230)),(40,335))
+        screen.blit(l2.render(answer3_3,True,(230, 230, 230)),(40,360))
+        screen.blit(l2.render(answer4_1,True,(230, 230, 230)),(320,310))
+        screen.blit(l2.render(answer4_2,True,(230, 230, 230)),(320,335))
+        screen.blit(l2.render(answer4_3,True,(230, 230, 230)),(320,360))
 
    
 BACKGROUND_PICTURE = pygame.image.load("office.jpg")
@@ -199,6 +170,10 @@ while not done:
                 runner.go_up()
             elif event.key == pygame.K_DOWN:
                 runner.go_down()
+        elif event.type == MOUSEBUTTONDOWN:
+            for button in runner.buttonList:
+              if button.pressed(pygame.mouse.get_pos()):
+                runner.x_position = 0
         if event.type == pygame.QUIT:
             done = True
 
@@ -208,6 +183,9 @@ while not done:
     runner.create_woman()
     runner.show_question()
     runner.show_answer()
+    # runner.show_answer2()
+    # runner.show_answer3()
+    # runner.show_answer4()
     
 
     pygame.display.flip()
