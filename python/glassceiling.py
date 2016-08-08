@@ -24,20 +24,44 @@ level_number=1
 level_two = {
     'question': ["You are applying for a job and you know from past experience that","men get offered more money than women, so you know that the company","can pay you more than what they offer. When you arrive at the","interview, you overhear some men saying they were offered around","$ an hour. You go through your interview and you were offered","$35 an hour. What do you do?"],
     'answers': [
-        ["Announce that it was your idea"],
-        ["After the meeting, you pull him aside", "and offer some more ideas that he", "could suggest in the next meetings."],
-        ["You join the crowd and applaud him."],
-        ["You throw your coffee at him and", "storm out of the room."]
+        { 'answer': ["Announce that it was your idea","",""],
+            'x': 40,
+            'y': 195
+        },
+        { 'answer': ["After the meeting, you pull him aside", "and offer some more ideas that he", "could suggest in the next meetings."],
+            'x': 320,
+            'y': 195
+        },
+        { 'answer': ["You join the crowd and applaud him.","",""],
+            'x': 320,
+            'y': 285
+        },
+        { 'answer': ["You throw your coffee at him and", "storm out of the room.",""],
+            'x': 40,
+            'y': 285
+        }
     ]
 }
 
 level_three = {
     'question': ["You are an intern, and the person you’re shadowing is in","an important meeting, where they encourage interns to ask","questions. You have an idea that could make the company a","lot of money. You suggest the idea, but a man cuts you off","mid-sentence and finishes what you were saying. Everyone","applauds him and says that it’s a great idea. What do you do?"],
     'answers': [
-        ["Take it! $35 an hour is a lot", "more than your old job."],
-        ["Leave it. You know how much you", "are worth, and it's not $35 an hour."] ,
-        ["Negotiate for a higher price."],
-        ["Pull out the “but those guys", "get $43 an hour!! Why can’t", "I???” card"]
+        { 'answer': ["Take it! $35 an hour is a lot", "more than your old job.",""],
+            'x': 40,
+            'y': 195
+        },
+        { 'answer': ["Leave it. You know how much you", "are worth, and it's not $35 an hour.",""] ,
+            'x': 320,
+            'y': 195
+        },
+        { 'answer': ["Negotiate for a higher price.","",""],
+            'x': 320,
+            'y': 285
+        },
+        { 'answer': ["Pull out the “but those guys", "get $43 an hour!! Why can’t", "I???” card"],
+            'x': 40,
+            'y': 285
+        }
     ]
 }
 
@@ -223,9 +247,9 @@ class woman():
 
     for xy in coordinates:
       if self.x_position >= 500:
-        button = Button()
-        self.buttonList.append(button)
-        button.create_button(screen, (64, 64, 64), xy[0], xy[1], 260, 80, 0, "no", (64, 64, 64))
+        self.button = Button()
+        self.buttonList.append(self.button)
+        self.button.create_button(screen, (64, 64, 64), xy[0], xy[1], 260, 80, 0, "no", (64, 64, 64))
         if level_number==1:
           level1.wronganswers()
         elif level_number==2:
@@ -234,8 +258,8 @@ class woman():
           level3.wronganswers()
   def correct_answer(self):
     if self.x_position >= 500:
-      Button1 = Button()
-      Button1.create_button(screen, (64, 64, 64),310, 220, 260, 80, 0, "no", (64, 64, 64))
+      self.Button1 = Button()
+      self.Button1.create_button(screen, (64, 64, 64),310, 220, 260, 80, 0, "no", (64, 64, 64))
       if level_number==1:
         level1.correctanswer()
       elif level_number==2:
@@ -273,16 +297,10 @@ class item(pygame.sprite.Sprite):
 
 
 
-if level_number==1:
-   BACKGROUND_PICTURE = pygame.image.load("office.jpg")
-elif level_number==2:
-  BACKGROUND_PICTURE = pygame.image.load("background.jpg")
-elif level_number==3:
-  BACKGROUND_PICTURE = pygame.image.load("background2.jpg")
 
-BACKGROUND_PICTURE2 = pygame.image.load("office.jpg")
-BACKGROUND_PICTURE_x = 0
-BACKGROUND_PICTURE2_x = BACKGROUND_PICTURE.get_width()
+
+
+
 
 
 coins = item(screen, 50, 50, "coin.png")
@@ -309,13 +327,26 @@ while not done:
             elif event.key == pygame.K_DOWN:
                 runner.go_down()
         elif event.type == MOUSEBUTTONDOWN:
-            if Button1.pressed(pygame.mouse.get_pos()):
+            if runner.Button1.pressed(pygame.mouse.get_pos()):
               level_number +=1
+              runner.x_position = 0
             for button in runner.buttonList:
-              if button.pressed(pygame.mouse.get_pos()):
+              if runner.button.pressed(pygame.mouse.get_pos()):
                 runner.x_position = 0
+        if level_number==1:
+           BACKGROUND_PICTURE = pygame.image.load("office.jpg")
+           BACKGROUND_PICTURE2 = pygame.image.load("office.jpg")
+        elif level_number==2:
+          BACKGROUND_PICTURE = pygame.image.load("background.jpg")
+          BACKGROUND_PICTURE2 = pygame.image.load("background.jpg")
+        elif level_number==3:
+          BACKGROUND_PICTURE = pygame.image.load("background2.jpg")
+          BACKGROUND_PICTURE2 = pygame.image.load("background2.jpg")
         if event.type == pygame.QUIT:
             done = True
+
+    BACKGROUND_PICTURE_x = 0
+    BACKGROUND_PICTURE2_x = BACKGROUND_PICTURE.get_width()
 
     # if item.itemsCollision():
     # item.update(1, 1, coin)
@@ -338,3 +369,5 @@ while not done:
     clock.tick(60)
 
 pygame.quit()
+
+print(level_number)
