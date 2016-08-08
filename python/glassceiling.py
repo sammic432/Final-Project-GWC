@@ -20,51 +20,6 @@ rany = random.randint (100, 400)
 #level variable
 level_number=1
 
-
-level_two = {
-    'question': ["You are applying for a job and you know from past experience that","men get offered more money than women, so you know that the company","can pay you more than what they offer. When you arrive at the","interview, you overhear some men saying they were offered around","$ an hour. You go through your interview and you were offered","$35 an hour. What do you do?"],
-    'answers': [
-        { 'answer': ["Announce that it was your idea","",""],
-            'x': 40,
-            'y': 195
-        },
-        { 'answer': ["After the meeting, you pull him aside", "and offer some more ideas that he", "could suggest in the next meetings."],
-            'x': 320,
-            'y': 195
-        },
-        { 'answer': ["You join the crowd and applaud him.","",""],
-            'x': 320,
-            'y': 285
-        },
-        { 'answer': ["You throw your coffee at him and", "storm out of the room.",""],
-            'x': 40,
-            'y': 285
-        }
-    ]
-}
-
-level_three = {
-    'question': ["You are an intern, and the person you’re shadowing is in","an important meeting, where they encourage interns to ask","questions. You have an idea that could make the company a","lot of money. You suggest the idea, but a man cuts you off","mid-sentence and finishes what you were saying. Everyone","applauds him and says that it’s a great idea. What do you do?"],
-    'answers': [
-        { 'answer': ["Take it! $35 an hour is a lot", "more than your old job.",""],
-            'x': 40,
-            'y': 195
-        },
-        { 'answer': ["Leave it. You know how much you", "are worth, and it's not $35 an hour.",""] ,
-            'x': 320,
-            'y': 195
-        },
-        { 'answer': ["Negotiate for a higher price.","",""],
-            'x': 320,
-            'y': 285
-        },
-        { 'answer': ["Pull out the “but those guys", "get $43 an hour!! Why can’t", "I???” card"],
-            'x': 40,
-            'y': 285
-        }
-    ]
-}
-
 level_one = {
     'question': ["You just became a manager in your company,","and you were assigned a group project, in which ","you were the only woman. This project has to","do with something you’re really passionate about","and would be good at doing, but you feel that they are","not happy with having a female manager. What do you do?"],
     'answers': [
@@ -86,6 +41,51 @@ level_one = {
         }
     ]
 }
+
+level_two = {
+    'question': ["You are an intern, and the person you’re shadowing is in","an important meeting, where they encourage interns to ask","questions. You have an idea that could make the company a","lot of money. You suggest the idea, but a man cuts you off","mid-sentence and finishes what you were saying. Everyone","applauds him and says that it’s a great idea. What do you do?"],
+    'answers': [
+        { 'answer': ["Announce that it was your idea","",""],
+            'x': 40,
+            'y': 195
+        },
+        { 'answer': ["After the meeting, you pull him aside", "and offer some more ideas that he", "could suggest in the next meetings."],
+            'x': 320,
+            'y': 195
+        },
+        { 'answer': ["You join the crowd and applaud him.","",""],
+            'x': 320,
+            'y': 285
+        },
+        { 'answer': ["You throw your coffee at him and", "storm out of the room.",""],
+            'x': 40,
+            'y': 285
+        }
+    ]
+}
+
+level_three = {
+    'question': ["You are applying for a job and you know from past experience that","men get offered more money than women, so you know that the company","can pay you more than what they offer. When you arrive at the","interview, you overhear some men saying they were offered around","$43 an hour. You go through your interview and you were offered","$35 an hour. What do you do?"],
+    'answers': [
+        { 'answer': ["Take it! $35 an hour is a lot", "more than your old job.",""],
+            'x': 40,
+            'y': 195
+        },
+        { 'answer': ["Leave it. You know how much you", "are worth, and it's not $35 an hour.",""] ,
+            'x': 320,
+            'y': 195
+        },
+        { 'answer': ["Negotiate for a higher price.","",""],
+            'x': 320,
+            'y': 285
+        },
+        { 'answer': ["Pull out the “but those guys", "get $43 an hour!! Why can’t", "I???” card"],
+            'x': 40,
+            'y': 285
+        }
+    ]
+}
+
 
 # level_one.answers[0].x => 40
 
@@ -165,15 +165,21 @@ class Button:
 
 class Level():
   def __init__(self, situation):
-    self.question = situation['question']
-    self.wrong_answers = [situation['answers'][0],situation['answers'][2],situation['answers'][3]]
-    self.right_answer = situation['answers'][1]
+    self.situation = situation
+    self.question = self.situation['question']
+  # def write_answer(self):
   def questions(self):
     y=20
     for line in self.question:
         screen.blit(l1.render(line,True,(0,0,0)),(20,y))
         y += 30
   def wronganswers(self):
+    if level_number==1:
+        self.wrong_answers = [self.situation['answers'][0],self.situation['answers'][2],self.situation['answers'][3]]
+    elif level_number==2:
+        self.wrong_answers = [self.situation['answers'][1],self.situation['answers'][2],self.situation['answers'][3]]
+    elif level_number==3:
+        self.wrong_answers = [self.situation['answers'][0],self.situation['answers'][1],self.situation['answers'][2]]
     for obj in self.wrong_answers:
         y = obj['y']
         for line in obj["answer"]:
@@ -181,10 +187,16 @@ class Level():
             screen.blit(l2.render(line, True, (230,230,230)),(obj['x'], y))
 
   def correctanswer(self):
+    if level_number==1:
+        self.right_answer = self.situation['answers'][1]
+    elif level_number==2:
+        self.right_answer = self.situation['answers'][0]
+    elif level_number==3:
+        self.right_answer = self.situation['answers'][3]
     y=self.right_answer['y']
     for line in self.right_answer["answer"]:
         y+=25
-        screen.blit(l2.render(line, True, (230,230,230)), (self.right_answer['x'],y))
+        screen.blit(l2.render(line, True, (255, 175,175)), (self.right_answer['x'],y))
 
 level1=Level(level_one)
 level2=Level(level_two)
@@ -257,15 +269,20 @@ class woman():
         elif level_number==3:
           level3.wronganswers()
   def correct_answer(self):
+    button_xy=[[310,220],[30,220],[310,310]]
     if self.x_position >= 500:
-      self.Button1 = Button()
-      self.Button1.create_button(screen, (64, 64, 64),310, 220, 260, 80, 0, "no", (64, 64, 64))
-      if level_number==1:
-        level1.correctanswer()
-      elif level_number==2:
-        level2.correctanswer()
-      elif level_number==3:
-        level3.correctanswer()
+        if level_number==1:
+            self.Button1 = Button()
+            self.Button1.create_button(screen, (64, 64, 64),button_xy[0][0], button_xy[0][1], 260, 80, 0, "no", (64, 64, 64))
+            level1.correctanswer()
+        elif level_number==2:
+            self.Button1 = Button()
+            self.Button1.create_button(screen, (64, 64, 64),button_xy[1][0], button_xy[1][1], 260, 80, 0, "no", (64, 64, 64))
+            level2.correctanswer()
+        elif level_number==3:
+            self.Button1 = Button()
+            self.Button1.create_button(screen, (64, 64, 64),button_xy[2][0], button_xy[2][1], 260, 80, 0, "no", (64, 64, 64))
+            level3.correctanswer()
 
 class item(pygame.sprite.Sprite):
     def __init__(self, x, y, itemType, image):
@@ -294,12 +311,6 @@ class item(pygame.sprite.Sprite):
         self.moveSprite(movex, movey)
         self.itemsCollision(item)
         # self.render()
-
-
-
-
-
-
 
 
 
