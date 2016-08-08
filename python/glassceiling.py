@@ -13,6 +13,10 @@ RED = (255, 0, 0)
 BLUE = (0, 0, 255)
 GREY = (129, 129, 129)
 
+# random randint for coins
+ranx = random.randint (100, 600)
+rany = random.randint (100, 400)
+
 #level variable
 level_number=1
 
@@ -239,6 +243,36 @@ class woman():
       elif level_number==3:
         level3.correctanswer()
 
+class item(pygame.sprite.Sprite):
+    def __init__(self, x, y, itemType, image):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.image.load("coin.png").convert_alpha()
+        self.rect = self.image.get_rect()
+        self.x=x
+        self.y=y
+        self.itemType = itemType
+
+    # def pickUp(self):
+    #     return self.itemType
+
+    def show_coin(self):
+        print ("shows coin")
+        item = pygame.image.load("coin.png")
+        item = pygame.transform.scale(item, (50, 50))
+        # self.buttonList = []
+        screen.blit(item, (ranx, rany))
+
+    def itemsCollision(self, item):
+        pygame.sprite.spritecollide(self, item, True)
+        # item.show_coin = False
+
+    def update(self, movex, movey, item):
+        self.moveSprite(movex, movey)
+        self.itemsCollision(item)
+        # self.render()
+
+
+
 if level_number==1:
    BACKGROUND_PICTURE = pygame.image.load("office.jpg")
 elif level_number==2:
@@ -251,6 +285,7 @@ BACKGROUND_PICTURE_x = 0
 BACKGROUND_PICTURE2_x = BACKGROUND_PICTURE.get_width()
 
 
+coins = item(screen, 50, 50, "coin.png")
 # runner = woman(screen, 80, 350)
 
 runner = woman(screen, 0, 200)
@@ -282,10 +317,14 @@ while not done:
         if event.type == pygame.QUIT:
             done = True
 
+    # if item.itemsCollision():
+    # item.update(1, 1, coin)
+
+
 
 
     screen.blit(BACKGROUND_PICTURE, (0,0))
-
+    coins.show_coin()
 
     runner.create_woman("running_girl_0001_Layer-3.png")
     runner.show_question()
@@ -299,6 +338,3 @@ while not done:
     clock.tick(60)
 
 pygame.quit()
-
-
-print(level_number)
