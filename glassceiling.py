@@ -331,14 +331,14 @@ while not done:
               if runner.button.pressed(pygame.mouse.get_pos()):
                 runner.x_position = 0
         if level_number==1:
-           BACKGROUND_PICTURE = pygame.image.load("office.jpg")
-           BACKGROUND_PICTURE2 = pygame.image.load("office.jpg")
+            BACKGROUND_PICTURE = pygame.image.load("office.jpg")
+            BACKGROUND_PICTURE2 = pygame.image.load("office.jpg")
         elif level_number==2:
-          BACKGROUND_PICTURE = pygame.image.load("background.jpg")
-          BACKGROUND_PICTURE2 = pygame.image.load("background.jpg")
+            BACKGROUND_PICTURE = pygame.image.load("background.jpg")
+            BACKGROUND_PICTURE2 = pygame.image.load("background.jpg")
         elif level_number==3:
-          BACKGROUND_PICTURE = pygame.image.load("background2.jpg")
-          BACKGROUND_PICTURE2 = pygame.image.load("background2.jpg")
+            BACKGROUND_PICTURE = pygame.image.load("background2.jpg")
+            BACKGROUND_PICTURE2 = pygame.image.load("background2.jpg")
         if event.type == pygame.QUIT:
             done = True
  
@@ -359,6 +359,7 @@ while not done:
                 total = 0
                 runner.show_question()
                 runner.show_answer()
+
                 runner.correct_answer()
         elif level_number==2:
             if total < 10 :
@@ -370,6 +371,7 @@ while not done:
                 total = 0
                 runner.show_question()
                 runner.show_answer()
+
                 runner.correct_answer()
         elif level_number==3:
             if total < 15 :
@@ -381,6 +383,7 @@ while not done:
                 total = 0
                 runner.show_question()
                 runner.show_answer()
+
                 runner.correct_answer()
 
     coin.show_coin()
