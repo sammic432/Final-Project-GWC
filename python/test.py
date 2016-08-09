@@ -230,7 +230,7 @@ class woman():
     self.imageCount = 0
 
   def create_woman(self, imageFile):
-    print(imageFile)
+    # print(imageFile)
     woman = pygame.image.load(imageFile)
     woman = pygame.transform.scale(woman, (100, 150))
     self.buttonList = []
@@ -254,7 +254,7 @@ class woman():
 
   def setImage(self):
     last = self.imageList.pop
-    print(last)
+    # print(last)
     # print(self.imageList)
     self.imageList.insert(0, last)
     # self.create_woman(self.imageList[0])
@@ -317,7 +317,7 @@ class item(pygame.sprite.Sprite):
     #     return self.itemType
 
     def show_coin(self):
-        print ("shows coin")
+        # print ("shows coin")
         item = pygame.image.load("coin.png")
         item = pygame.transform.scale(item, (50, 50))
         # self.buttonList = []
