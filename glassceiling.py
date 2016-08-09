@@ -13,10 +13,6 @@ RED = (255, 0, 0)
 BLUE = (0, 0, 255)
 GREY = (129, 129, 129)
 
-# random randint for coins
-ranx = random.randint (100, 600)
-rany = random.randint (100, 400)
-
 #level variable
 level_number=1
 
@@ -165,7 +161,6 @@ class Button:
             else: return False
         else: return False
 
-
 class Level():
   def __init__(self, situation):
     self.question = situation['question']
@@ -237,7 +232,6 @@ class woman():
     self.y_position=self.y_position+10
 
   def show_question(self):
-    if self.x_position >=500:
       if level_number == 1:
         level1.questions()
       elif level_number ==2:
@@ -246,9 +240,7 @@ class woman():
         level3.questions()
   def show_answer(self):
     coordinates = [[30, 220],[310, 220],[30, 310],[310, 310]]
-
     for xy in coordinates:
-      if self.x_position >= 500:
         self.button = Button()
         self.buttonList.append(self.button)
         self.button.create_button(screen, (64, 64, 64), xy[0], xy[1], 260, 80, 0, "no", (64, 64, 64))
@@ -258,8 +250,8 @@ class woman():
           level2.wronganswers()
         elif level_number==3:
           level3.wronganswers()
+
   def correct_answer(self):
-    if self.x_position >= 500:
       self.Button1 = Button()
       self.Button1.create_button(screen, (64, 64, 64),310, 220, 260, 80, 0, "no", (64, 64, 64))
       if level_number==1:
@@ -270,22 +262,28 @@ class woman():
         level3.correctanswer()
 
 class item(pygame.sprite.Sprite):
-    def __init__(self, x, y, itemType, image):
+    def __init__(self, itemType, image):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load("coin.png").convert_alpha()
         self.rect = self.image.get_rect()
-        self.x=x
-        self.y=y
+        self.x=random.randint (100, 600)
+        self.y=random.randint (100, 400)
         self.itemType = itemType
+
+        # self.l1coins_list = pygame.sprite.Group()
 
     # def pickUp(self):
     #     return self.itemType
+
+    def move_coin(self):
+        self.x=random.randint (100, 600)
+        self.y=random.randint (100, 400)
 
     def show_coin(self):
         item = pygame.image.load("coin.png")
         item = pygame.transform.scale(item, (50, 50))
         # self.buttonList = []
-        screen.blit(item, (ranx, rany))
+        screen.blit(item, (self.x, self.y))
 
     def itemsCollision(self, item):
         pygame.sprite.spritecollide(self, item, True)
@@ -300,8 +298,7 @@ class item(pygame.sprite.Sprite):
 
 
 
-
-coins = item(screen, 50, 50, "coin.png")
+coin = item(screen, "coin.png")
 # runner = woman(screen, 80, 350)
 
 runner = woman(screen, 0, 200)
@@ -344,38 +341,50 @@ while not done:
           BACKGROUND_PICTURE2 = pygame.image.load("background2.jpg")
         if event.type == pygame.QUIT:
             done = True
-
-    if (ranx - 75 <= runner.x_position <= ranx + 25) and (rany - 75 <= runner.y_position <= rany + 25):
-        total += 1
-
-        print (total)
-    # print ("x y: ")
-    # print (runner.x_position)
-    # print (runner.y_position)
-    # print ("ran x y : ")
-    # print (ranx)
-    # print (rany)
-
+ 
+    screen.blit(BACKGROUND_PICTURE, (0,0))
     ########### if runner touches sprite, total += 1
 
     BACKGROUND_PICTURE_x = 0
     BACKGROUND_PICTURE2_x = BACKGROUND_PICTURE.get_width()
 
-    # if item.itemsCollision():
-    # item.update(1, 1, coin)
+    if (coin.x - 75 <= runner.x_position <= coin.x + 25) and (coin.y - 75 <= runner.y_position <= coin.y + 25):
+        if level_number==1:
+            if total < 5 :
+                total += 1
+                coin.move_coin()
+            else:
+                # coin.hide()
+                # runner.hide()
+                total = 0
+                runner.show_question()
+                runner.show_answer()
+                runner.correct_answer()
+        elif level_number==2:
+            if total < 10 :
+                total += 1
+                coin.move_coin()
+            else:
+                # coin.hide()
+                # runner.hide()
+                total = 0
+                runner.show_question()
+                runner.show_answer()
+                runner.correct_answer()
+        elif level_number==3:
+            if total < 15 :
+                total += 1
+                coin.move_coin()
+            else:
+                # coin.hide()
+                # runner.hide()
+                total = 0
+                runner.show_question()
+                runner.show_answer()
+                runner.correct_answer()
 
-
-
-
-    screen.blit(BACKGROUND_PICTURE, (0,0))
-    coins.show_coin()
-
+    coin.show_coin()
     runner.create_woman("running_girl_0001_Layer-3.png")
-    runner.show_question()
-    runner.show_answer()
-
-    runner.correct_answer()
-    
 
     pygame.display.flip()
  
