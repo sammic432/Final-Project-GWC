@@ -275,21 +275,26 @@ class woman():
             button = Button()
             self.buttonList.append(button)
             button.create_button(screen, (64, 64, 64), xy[0], xy[1], 260, 80, 0, "no", (64, 64, 64))
+            level1.wronganswers1()
+
         if (level_number == 2) and (total ==10) :
             button = Button()
             self.buttonList.append(button)
             button.create_button(screen, (64, 64, 64), xy[0], xy[1], 260, 80, 0, "no", (64, 64, 64))
+            level2.wronganswers2()
+
         if (level_number == 3) and (total ==15) :
             button = Button()
             self.buttonList.append(button)
             button.create_button(screen, (64, 64, 64), xy[0], xy[1], 260, 80, 0, "no", (64, 64, 64))
+            level3.wronganswers3()
     
-        if level_number==1:
-          level1.wronganswers1()
-        elif level_number==2:
-          level2.wronganswers2()
-        elif level_number==3:
-          level3.wronganswers3()
+        # if level_number==1:
+        #   level1.wronganswers1()
+        # elif level_number==2:
+        #   level2.wronganswers2()
+        # elif level_number==3:
+        #   level3.wronganswers3()
   def correct_answer1(self):
     if total ==5:
       self.Button1 = Button()
@@ -363,7 +368,7 @@ done = False
 pygame.key.set_repeat(10,10)
 
 while not done:
-
+    print(level_number)
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_RIGHT:
@@ -378,6 +383,7 @@ while not done:
             if runner.Button1.pressed(pygame.mouse.get_pos()):
               level_number +=1
               runner.x_position = 0
+              total=0
             for button in runner.buttonList:
               if runner.button.pressed(pygame.mouse.get_pos()):
                 runner.x_position = 0
