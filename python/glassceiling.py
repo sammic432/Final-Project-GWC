@@ -271,37 +271,17 @@ class woman():
   def show_answer(self):
     coordinates = [[30, 220],[310, 220],[30, 310],[310, 310]]
     self.button2 = Button()
-    for xy in coordinates:
-        self.buttonList.append(self.button2)
-        self.button2.create_button(screen, (64, 64, 64), xy[0], xy[1], 260, 80, 0, "no", (64, 64, 64))
-    
-        if level_number==1:
-          level1.wronganswers1()
-        elif level_number==2:
-          level2.wronganswers2()
-        elif level_number==3:
-          level3.wronganswers3()
-  def show_answer1(self):
-    if total == 5:
-        self.button2 = Button()
-        self.button2.create_button(screen, (64, 64, 64), 30, 220, 260, 80, 0, "no", (64, 64, 64))
-        self.button2.create_button(screen, (64, 64, 64), 30, 310, 260, 80, 0, "no", (64, 64, 64))
-        self.button2.create_button(screen, (64, 64, 64), 310, 310, 260, 80, 0, "no", (64, 64, 64))
-        level1.wronganswers1()
-  def show_answer2(self):
-    if total == 10:
-        self.button2 = Button()
-        self.button2.create_button(screen, (64, 64, 64), 310, 220, 260, 80, 0, "no", (64, 64, 64))
-        self.button2.create_button(screen, (64, 64, 64), 30, 310, 260, 80, 0, "no", (64, 64, 64))
-        self.button2.create_button(screen, (64, 64, 64), 310, 310, 260, 80, 0, "no", (64, 64, 64))
-        level2.wronganswers2()
-  def show_answer3(self):
-    if total == 15:
-        self.button2 = Button()
-        self.button2.create_button(screen, (64, 64, 64), 310, 220, 260, 80, 0, "no", (64, 64, 64))
-        self.button2.create_button(screen, (64, 64, 64), 30, 310, 260, 80, 0, "no", (64, 64, 64))
-        self.button2.create_button(screen, (64, 64, 64), 310, 310, 260, 80, 0, "no", (64, 64, 64))
-        level3.wronganswers3()
+    if ((level_number ==1) and (total == 5)) or ((level_number == 2)and (total ==10)) or ((level_number==3)and(total==15)):
+        for xy in coordinates:
+            self.buttonList.append(self.button2)
+            self.button2.create_button(screen, (64, 64, 64), xy[0], xy[1], 260, 80, 0, "no", (64, 64, 64))
+        
+            if level_number==1:
+              level1.wronganswers1()
+            elif level_number==2:
+              level2.wronganswers2()
+            elif level_number==3:
+              level3.wronganswers3()
 
   def correct_answer1(self):
     if total ==5:
@@ -360,10 +340,17 @@ class item(pygame.sprite.Sprite):
         self.itemsCollision(item)
         # self.render()
 
-
-
 coin = item(screen, "coin.png")
-# runner = woman(screen, 80, 350)
+
+class Hide:
+
+    def hidethings(self):
+        if ((level_number ==1) and (total == 5)) or ((level_number == 2)and (total ==10)) or ((level_number==3)and(total==15)):
+            runner.x_position = 10000
+            coin.x = -10000
+        
+hide = Hide()
+
 
 restart_button = Button()
 restart_button.create_button(screen, (0, 0, 0),20, 450, 50, 80, 0, "restart", (255, 255, 255))
@@ -393,14 +380,20 @@ while not done:
             if runner.button2.pressed(pygame.mouse.get_pos()):
               runner.x_position = 0
               total = 0
+              coin.x=random.randint (100, 600)
+              coin.y=random.randint (100, 400)
             elif runner.Button1.pressed(pygame.mouse.get_pos()):
               level_number +=1
               runner.x_position = 0
               total=0
+              coin.x=random.randint (100, 600)
+              coin.y=random.randint (100, 400)
             elif restart_button.pressed(pygame.mouse.get_pos()):
               level_number = 0
               runner.x_position = 0
               total=0
+              coin.x=random.randint (100, 600)
+              coin.y=random.randint (100, 400)
         if level_number==1:
             BACKGROUND_PICTURE = pygame.image.load("office.jpg")
             BACKGROUND_PICTURE2 = pygame.image.load("office.jpg")
@@ -422,20 +415,17 @@ while not done:
       total+=1
       coin.move_coin()
 
-
-
     runner.show_question()
+    runner.show_answer()
+    hide.hidethings()
 
     if level_number == 1:
-        runner.show_answer1()
         runner.correct_answer1()
 
     if level_number == 2:
-        runner.show_answer2()
         runner.correct_answer2()
 
     if level_number == 3:
-        runner.show_answer3()
         runner.correct_answer3()
 
     
