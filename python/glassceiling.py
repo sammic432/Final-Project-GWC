@@ -395,14 +395,14 @@ while not done:
               coin.x=random.randint (100, 600)
               coin.y=random.randint (100, 400)
         if level_number==1:
-            BACKGROUND_PICTURE = pygame.image.load("office.jpg")
-            BACKGROUND_PICTURE2 = pygame.image.load("office.jpg")
+            BACKGROUND_PICTURE = pygame.image.load("office1.jpg")
+            BACKGROUND_PICTURE2 = pygame.image.load("office1.jpg")
         elif level_number==2:
-            BACKGROUND_PICTURE = pygame.image.load("background.jpg")
-            BACKGROUND_PICTURE2 = pygame.image.load("background.jpg")
+            BACKGROUND_PICTURE = pygame.image.load("office2.jpg")
+            BACKGROUND_PICTURE2 = pygame.image.load("office2.jpg")
         elif level_number==3:
-            BACKGROUND_PICTURE = pygame.image.load("background2.jpg")
-            BACKGROUND_PICTURE2 = pygame.image.load("background2.jpg")
+            BACKGROUND_PICTURE = pygame.image.load("office3.jpg")
+            BACKGROUND_PICTURE2 = pygame.image.load("office3.jpg")
         if event.type == pygame.QUIT:
             done = True
  
