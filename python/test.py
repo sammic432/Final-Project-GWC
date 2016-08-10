@@ -260,10 +260,6 @@ class woman():
     # self.create_woman(self.imageList[0])
     self.x_position=self.x_position-20
 
-  def go_up(self):
-    self.y_position=self.y_position-10
-  def go_down(self):
-    self.y_position=self.y_position+10
 
   def show_question(self):
     if self.x_position >=500:
@@ -370,14 +366,14 @@ while not done:
               # screen.blit(nextlevel, (0, 0))
               # print("already show picture")
         if level_number==1:
-           BACKGROUND_PICTURE = pygame.image.load("office.jpg")
-           BACKGROUND_PICTURE2 = pygame.image.load("office.jpg")
+           BACKGROUND_PICTURE = pygame.image.load("office1.jpg")
+           BACKGROUND_PICTURE2 = pygame.image.load("office1.jpg")
         elif level_number==2:
-          BACKGROUND_PICTURE = pygame.image.load("background.jpg")
-          BACKGROUND_PICTURE2 = pygame.image.load("background.jpg")
+          BACKGROUND_PICTURE = pygame.image.load("office2.jpg")
+          BACKGROUND_PICTURE2 = pygame.image.load("office2.jpg")
         elif level_number==3:
-          BACKGROUND_PICTURE = pygame.image.load("background2.jpg")
-          BACKGROUND_PICTURE2 = pygame.image.load("background2.jpg")
+          BACKGROUND_PICTURE = pygame.image.load("office3.jpg")
+          BACKGROUND_PICTURE2 = pygame.image.load("office3.jpg")
         if event.type == pygame.QUIT:
             done = True
 

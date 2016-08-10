@@ -172,6 +172,7 @@ class Level():
     self.wrong_answers3 = [situation['answers'][0],situation['answers'][1],situation['answers'][3]]
     self.right_answer3 = situation['answers'][2]
   def questions(self):
+    pygame.draw.rect(screen, (255,255,255), (20,20, 600,180))
     y=20
     for line in self.question:
         screen.blit(l1.render(line,True,(0,0,0)),(20,y))
@@ -256,10 +257,6 @@ class woman():
   #   # self.create_woman(self.imageList[0])
   #   self.x_position=self.x_position-20
 
-  def go_up(self):
-    self.y_position=self.y_position-10
-  def go_down(self):
-    self.y_position=self.y_position+10
 
   def show_question(self):
       if (level_number == 1) and (total == 5):
@@ -270,9 +267,9 @@ class woman():
         level3.questions()
   def show_answer(self):
     coordinates = [[30, 220],[310, 220],[30, 310],[310, 310]]
-    self.button2 = Button()
     if ((level_number ==1) and (total == 5)) or ((level_number == 2)and (total ==10)) or ((level_number==3)and(total==15)):
         for xy in coordinates:
+            self.button2 = Button()
             self.buttonList.append(self.button2)
             self.button2.create_button(screen, (64, 64, 64), xy[0], xy[1], 260, 80, 0, "no", (64, 64, 64))
         
@@ -284,20 +281,23 @@ class woman():
               level3.wronganswers3()
 
   def correct_answer1(self):
-    if total ==5:
+    if (level_number == 1) and (total ==5):
       self.Button1 = Button()
       self.Button1.create_button(screen, (64, 64, 64),310, 220, 260, 80, 0, "no", (64, 64, 64))
       level1.correctanswer1()
   def correct_answer2(self):
-    if total == 10:
+    if (level_number==2) and (total == 10):
       self.Button1 = Button()
       self.Button1.create_button(screen, (64, 64, 64),30, 220, 260, 80, 0, "no", (64, 64, 64))
       level2.correctanswer2()
   def correct_answer3(self):
-    if total == 15:
+    if (level_number==3) and (total == 15):
       self.Button1 = Button()
       self.Button1.create_button(screen, (64, 64, 64),310, 310, 260, 80, 0, "no", (64, 64, 64))
       level3.correctanswer3()
+  def restart(self):
+    self.restart_button = Button()
+    self.restart_button.create_button(screen, (0, 0, 0),20, 450, 50, 80, 0, "restart", (255, 255, 255))
 
 runner = woman(screen, 0, 200)
 
@@ -352,8 +352,7 @@ class Hide:
 hide = Hide()
 
 
-restart_button = Button()
-restart_button.create_button(screen, (0, 0, 0),20, 450, 50, 80, 0, "restart", (255, 255, 255))
+
 
 
 pygame.display.set_caption("Glass Ceiling") 
@@ -362,7 +361,6 @@ done = False
 
 pygame.key.set_repeat(10,10)
 
-totalscore = "total"
 
 while not done:
     print(level_number)
@@ -377,23 +375,27 @@ while not done:
             elif event.key == pygame.K_DOWN:
                 runner.go_down()
         elif event.type == MOUSEBUTTONDOWN:
-            if runner.button2.pressed(pygame.mouse.get_pos()):
-              runner.x_position = 0
-              total = 0
-              coin.x=random.randint (100, 600)
-              coin.y=random.randint (100, 400)
-            elif runner.Button1.pressed(pygame.mouse.get_pos()):
-              level_number +=1
-              runner.x_position = 0
-              total=0
-              coin.x=random.randint (100, 600)
-              coin.y=random.randint (100, 400)
-            elif restart_button.pressed(pygame.mouse.get_pos()):
-              level_number = 0
-              runner.x_position = 0
-              total=0
-              coin.x=random.randint (100, 600)
-              coin.y=random.randint (100, 400)
+            if ((level_number ==1) and (total == 5)) or ((level_number == 2)and (total ==10)) or ((level_number==3)and(total==15)):
+                if runner.Button1.pressed(pygame.mouse.get_pos()):
+                    level_number +=1
+                    runner.x_position = 0
+                    total=0
+                    coin.x=random.randint (100, 600)
+                    coin.y=random.randint (100, 400)
+                for button3 in runner.buttonList:
+                    if button3.pressed(pygame.mouse.get_pos()):
+                        runner.x_position = 0
+                        total = 0
+                        coin.x=random.randint (100, 600)
+                        coin.y=random.randint (100, 400)
+                        print("does not work")
+                
+            # elif runner.restart.pressed(pygame.mouse.get_pos()):
+            #   level_number = 0
+            #   runner.x_position = 0
+            #   total=0
+            #   coin.x=random.randint (100, 600)
+            #   coin.y=random.randint (100, 400)
         if level_number==1:
             BACKGROUND_PICTURE = pygame.image.load("office1.jpg")
             BACKGROUND_PICTURE2 = pygame.image.load("office1.jpg")
