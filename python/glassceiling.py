@@ -351,6 +351,14 @@ class Hide:
         
 hide = Hide()
 
+class Show:
+    def showglass (self, time):
+        breaking = pygame.image.load("breaking.jpg")
+        # screen.blit(breaking, (0,0))
+    # def hideglass (self):
+    #     pygame.display.iconify()
+        
+show = Show()
 
 restart_button = Button()
 restart_button.create_button(screen, (0, 0, 0),20, 450, 50, 80, 0, "restart", (255, 255, 255))
@@ -378,6 +386,8 @@ while not done:
                 runner.go_down()
         elif event.type == MOUSEBUTTONDOWN:
             if runner.button2.pressed(pygame.mouse.get_pos()):
+              screen.blit(breaking, (0,0))
+              print ("breaking")
               runner.x_position = 0
               total = 0
               coin.x=random.randint (100, 600)
@@ -407,7 +417,6 @@ while not done:
             done = True
  
     screen.blit(BACKGROUND_PICTURE, (0,0))
-    ########### if runner touches sprite, total += 1
 
     BACKGROUND_PICTURE_x = 0
     BACKGROUND_PICTURE2_x = BACKGROUND_PICTURE.get_width()
@@ -421,6 +430,8 @@ while not done:
 
     if level_number == 1:
         runner.correct_answer1()
+        # show.showglass(5)
+        # show.hideglass()
 
     if level_number == 2:
         runner.correct_answer2()
