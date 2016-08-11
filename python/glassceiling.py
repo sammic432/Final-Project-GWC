@@ -363,7 +363,7 @@ pygame.key.set_repeat(10,10)
 
 
 while not done:
-    print(level_number)
+    # print(level_number)
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_RIGHT:
@@ -376,26 +376,22 @@ while not done:
                 runner.go_down()
         elif event.type == MOUSEBUTTONDOWN:
             if ((level_number ==1) and (total == 5)) or ((level_number == 2)and (total ==10)) or ((level_number==3)and(total==15)):
+                # for button3 in runner.buttonList:
+                if runner.button2.pressed(pygame.mouse.get_pos()):
+                    runner.x_position = 0
+                    total = 0
+                    coin.x=random.randint (100, 600)
+                    coin.y=random.randint (100, 400)
+                    print("does not work")
                 if runner.Button1.pressed(pygame.mouse.get_pos()):
+                    screen.blit(pygame.image.load("breaking.jpg"), (0,0))
+                    pygame.time.delay(1000)
+                    print("breaking")
                     level_number +=1
                     runner.x_position = 0
                     total=0
                     coin.x=random.randint (100, 600)
-                    coin.y=random.randint (100, 400)
-                for button3 in runner.buttonList:
-                    if button3.pressed(pygame.mouse.get_pos()):
-                        runner.x_position = 0
-                        total = 0
-                        coin.x=random.randint (100, 600)
-                        coin.y=random.randint (100, 400)
-                        print("does not work")
-                
-            # elif runner.restart.pressed(pygame.mouse.get_pos()):
-            #   level_number = 0
-            #   runner.x_position = 0
-            #   total=0
-            #   coin.x=random.randint (100, 600)
-            #   coin.y=random.randint (100, 400)
+                    coin.y=random.randint (100, 400)  
         if level_number==1:
             BACKGROUND_PICTURE = pygame.image.load("office1.jpg")
             BACKGROUND_PICTURE2 = pygame.image.load("office1.jpg")
@@ -419,6 +415,7 @@ while not done:
 
     runner.show_question()
     runner.show_answer()
+    runner.restart
     hide.hidethings()
 
     if level_number == 1:
@@ -430,7 +427,7 @@ while not done:
     if level_number == 3:
         runner.correct_answer3()
 
-    
+    pygame.draw.rect(screen, (246,230,230), (570,0, 100,30))
     screen.blit(l1.render("score:", True, (255,0,0)), (580,0))           
     screen.blit(l1.render(str(total), True, (255,0,0)), (650,0))
     coin.show_coin()
